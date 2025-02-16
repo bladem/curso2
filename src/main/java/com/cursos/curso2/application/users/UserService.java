@@ -1,17 +1,22 @@
 package com.cursos.curso2.application.users;
 
 import com.cursos.curso2.model.users.User;
+import com.cursos.curso2.model.users.ports.UserRepositoryPort;
 import com.cursos.curso2.model.users.ports.UserServicePort;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UserService implements UserServicePort {
+    private final UserRepositoryPort userRepositoryPort;
+
     @Override
-    public Optional<User> createUser(String name, String lastname) {
-        return Optional.of(new User(name, lastname));
+    public User createUser(String name, String lastname) {
+        return new User(name, lastname);
     }
 
     @Override
