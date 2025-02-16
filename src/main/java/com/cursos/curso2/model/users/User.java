@@ -1,4 +1,4 @@
-package com.cursos.curso2.model;
+package com.cursos.curso2.model.users;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
