@@ -16,9 +16,7 @@ public class UserRestController {
 
     @GetMapping("/details")
     public Map<String, Object>details(){
-        User user = new User();
-        user.setName("Pau");
-        user.setLastName("Sanchez");
+        User user = new User("Pau", "Sanchez");
 
         Map<String, Object> model = new HashMap<>();
         model.put("title", "Hola mundo");
