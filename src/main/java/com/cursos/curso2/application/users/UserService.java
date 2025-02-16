@@ -16,7 +16,7 @@ public class UserService implements UserServicePort {
 
     @Override
     public User createUser(String name, String lastname) {
-        return new User(name, lastname);
+        return userRepositoryPort.createUser(name, lastname);
     }
 
     @Override
@@ -31,11 +31,11 @@ public class UserService implements UserServicePort {
 
     @Override
     public User getUser(String name) {
-        return new User(name, "lastname");
+        return userRepositoryPort.getUser(name);
     }
 
     @Override
     public List<User> getUsers() {
-        return List.of(new User("name", "lastname"));
+        return userRepositoryPort.getUsers();
     }
 }

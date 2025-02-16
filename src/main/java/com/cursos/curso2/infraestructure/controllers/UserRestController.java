@@ -1,15 +1,12 @@
 package com.cursos.curso2.infraestructure.controllers;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.cursos.curso2.model.users.dto.UserDto;
 import com.cursos.curso2.model.users.ports.UserServicePort;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import com.cursos.curso2.model.users.User;
 
@@ -22,7 +19,7 @@ public class UserRestController {
 
     @GetMapping("/details")
     public UserDto details(){
-        User user = new User("Pau", "Sanchez");
+        User user = new User("Pau", "Sanchez", 1L);
 
         return new UserDto("Hola mundo", user);
     }
@@ -33,15 +30,13 @@ public class UserRestController {
     }
 
     @GetMapping("/user")
-    public User user(){
-        return userServicePort.getUser("Pau");
+    public User user(@RequestParam("name") String name){
+        return userServicePort.getUser(name);
     }
 
-    @GetMapping("/create")
-    public Map<String, String> create(){
-        userServicePort.createUser("Pau", "Sanchez");
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "User created");
-        return response;
+    @PutMapping("/create")
+    public ResponseEntity<User> create(@RequestParam("name") String name, @RequestParam("lastname") String lastname){
+        User newUser = userServicePort.createUser(name, lastname);
+        return ResponseEntity.ok().body(newUser);
     }
 }

@@ -6,10 +6,13 @@ import com.cursos.curso2.infraestructure.jdbc.users.UserRepository;
 import com.cursos.curso2.model.users.User;
 import com.cursos.curso2.model.users.ports.UserRepositoryPort;
 import lombok.RequiredArgsConstructor;
+import org.mapstruct.factory.Mappers;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -20,6 +23,12 @@ public class UsersRepositoryAdapter implements UserRepositoryPort {
 
     @Override
     public User createUser(String name, String lastname) {
+        UserEntity user = userRepository.findByName(name);
+
+        Optional.ofNullable(user).ifPresent(userEntity -> {
+            throw new DuplicateKeyException("User already exists");
+        });
+
         return userMapper.toUser(userRepository.save(UserEntity.builder().name(name).lastname(lastname).build()));
     }
 
@@ -35,11 +44,14 @@ public class UsersRepositoryAdapter implements UserRepositoryPort {
 
     @Override
     public User getUser(String name) {
-        return null;
+        UserEntity userEntity = userRepository.findByName(name);
+        return Optional.ofNullable(userEntity).map(userMapper::toUser).orElse(null);
     }
 
     @Override
     public List<User> getUsers() {
-        return List.of();
+        List<UserEntity> users = (List<UserEntity>) userRepository.findAll();
+
+        return users.stream().map(userMapper::toUser).collect(Collectors.toList());
     }
 }
