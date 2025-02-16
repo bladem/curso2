@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,13 +19,13 @@ public class UserService implements UserServicePort {
     }
 
     @Override
-    public void updateUser(String name, String lastname) {
-        System.out.println("User updated");
+    public User updateUser(Long id, String name, String lastname) {
+       return userRepositoryPort.updateUser(id, name, lastname);
     }
 
     @Override
-    public void deleteUser(String name) {
-        System.out.println("User deleted");
+    public void deleteUser(Long id) {
+        userRepositoryPort.deleteUser(id);
     }
 
     @Override

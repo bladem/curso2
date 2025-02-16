@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface UserRepositoryPort {
     User createUser(String name, String lastname);
-    void updateUser(String name, String lastname);
-    void deleteUser(String name);
+    User updateUser(Long id, String name, String lastname);
+    void deleteUser(Long id);
     User getUser(String name);
     List<User> getUsers();
 }

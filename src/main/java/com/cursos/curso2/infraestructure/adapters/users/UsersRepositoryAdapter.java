@@ -5,8 +5,8 @@ import com.cursos.curso2.infraestructure.jdbc.users.UserMapper;
 import com.cursos.curso2.infraestructure.jdbc.users.UserRepository;
 import com.cursos.curso2.model.users.User;
 import com.cursos.curso2.model.users.ports.UserRepositoryPort;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.mapstruct.factory.Mappers;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Component;
 
@@ -33,13 +33,20 @@ public class UsersRepositoryAdapter implements UserRepositoryPort {
     }
 
     @Override
-    public void updateUser(String name, String lastname) {
-
+    public User updateUser(Long id, String name, String lastname) {
+        UserEntity usersaved = userRepository.save(UserEntity.builder()
+                .id(id)
+                .name(name)
+                .lastname(lastname)
+                .build());
+        return userMapper.toUser(usersaved);
     }
 
     @Override
-    public void deleteUser(String name) {
+    public void deleteUser(Long id) {
+        userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found"));
 
+        userRepository.deleteById(id);
     }
 
     @Override

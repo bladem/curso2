@@ -26,17 +26,29 @@ public class UserRestController {
 
     @GetMapping("/users")
     public List<User> users(){
-        return userServicePort.getUsers();
+        return this.userServicePort.getUsers();
     }
 
     @GetMapping("/user")
     public User user(@RequestParam("name") String name){
-        return userServicePort.getUser(name);
+        return this.userServicePort.getUser(name);
     }
 
     @PutMapping("/create")
     public ResponseEntity<User> create(@RequestParam("name") String name, @RequestParam("lastname") String lastname){
-        User newUser = userServicePort.createUser(name, lastname);
+        User newUser = this.userServicePort.createUser(name, lastname);
         return ResponseEntity.ok().body(newUser);
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<User> update(@RequestParam("id") Long id, @RequestParam("name") String name, @RequestParam("lastname") String lastname){
+        User updatedUser = this.userServicePort.updateUser(id, name, lastname);
+        return ResponseEntity.ok().body(updatedUser);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> delete(@RequestParam("id") Long id){
+        this.userServicePort.deleteUser(id);
+        return ResponseEntity.ok().body("User deleted");
     }
 }
