@@ -14,8 +14,13 @@ public class UserService implements UserServicePort {
     private final UserRepositoryPort userRepositoryPort;
 
     @Override
-    public User createUser(String name, String lastname) {
-        return userRepositoryPort.createUser(name, lastname);
+    public User createUser(String name, String lastname, String email) {
+        User user = User.builder()
+                .name(name)
+                .lastname(lastname)
+                .email(email)
+                .build();
+        return userRepositoryPort.createUser(user);
     }
 
     @Override

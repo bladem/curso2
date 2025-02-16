@@ -22,14 +22,14 @@ public class UsersRepositoryAdapter implements UserRepositoryPort {
     private final UserMapper userMapper;
 
     @Override
-    public User createUser(String name, String lastname) {
-        UserEntity user = userRepository.findByName(name);
+    public User createUser(User user) {
+        UserEntity userSaved = userRepository.findByName(user.getName());
 
-        Optional.ofNullable(user).ifPresent(userEntity -> {
+        Optional.ofNullable(userSaved).ifPresent(userEntity -> {
             throw new DuplicateKeyException("User already exists");
         });
 
-        return userMapper.toUser(userRepository.save(UserEntity.builder().name(name).lastname(lastname).build()));
+        return userMapper.toUser(userRepository.save(userMapper.toUserEntity(user)));
     }
 
     @Override

@@ -19,7 +19,7 @@ public class UserRestController {
 
     @GetMapping("/details")
     public UserDto details(){
-        User user = new User("Pau", "Sanchez", 1L);
+        User user = User.builder().name("Pau").lastname("Sanchez").build();
 
         return new UserDto("Hola mundo", user);
     }
@@ -35,8 +35,8 @@ public class UserRestController {
     }
 
     @PutMapping("/create")
-    public ResponseEntity<User> create(@RequestParam("name") String name, @RequestParam("lastname") String lastname){
-        User newUser = this.userServicePort.createUser(name, lastname);
+    public ResponseEntity<User> create(@RequestParam("name") String name, @RequestParam("lastname") String lastname, @RequestParam("email") String email){
+        User newUser = this.userServicePort.createUser(name, lastname, email);
         return ResponseEntity.ok().body(newUser);
     }
 

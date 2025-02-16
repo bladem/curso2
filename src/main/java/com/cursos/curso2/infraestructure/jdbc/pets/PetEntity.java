@@ -1,4 +1,5 @@
-package com.cursos.curso2.infraestructure.jdbc.users;
+package com.cursos.curso2.infraestructure.jdbc.pets;
+
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,11 +15,14 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserEntity {
+public class PetEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String lastname;
-    private String email;
+    private String type;
+    private String breed;
+    private String color;
+    private String size;
+
 }

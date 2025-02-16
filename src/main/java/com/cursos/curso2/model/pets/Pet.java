@@ -1,4 +1,4 @@
-package com.cursos.curso2.model.users;
+package com.cursos.curso2.model.pets;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class User {
+public class Pet {
+    private Long idPet;
     private String name;
-    private String lastname;
-    private String email;
-    private Long idUser;
+    private String type;
+    private String breed;
+    private String color;
+    private String size;
 }
