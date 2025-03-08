@@ -17,7 +17,7 @@ public class UserService implements UserServicePort {
     public User createUser(String name, String lastname, String email) {
         User user = User.builder()
                 .name(name)
-                .lastname(lastname)
+                .lastName(lastname)
                 .email(email)
                 .build();
         return userRepositoryPort.createUser(user);

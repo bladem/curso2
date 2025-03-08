@@ -22,9 +22,9 @@ public class UserRestController {
 
     @GetMapping("/details")
     public UserDto details(){
-        User user = User.builder().name("Pau").lastname("Sanchez").build();
+        User user = User.builder().name("Pau").lastName("Sanchez").build();
 
-        return new UserDto("Hola mundo", user);
+        return this.useRestMapper.toUserDtoWithTitle(user, "Hola mundo");
     }
 
     @GetMapping("/users")

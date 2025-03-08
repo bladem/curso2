@@ -12,13 +12,13 @@ import java.util.List;
 public interface UserMapper {
 
     @Mapping(target = "name", source = "name")
-    @Mapping(target = "lastname", source = "lastname")
+    @Mapping(target = "lastName", source = "lastname")
     @Mapping(target = "email", source = "email")
     @Mapping(target ="idUser", source = "id")
     User toUser(UserEntity userEntity);
 
     @Mapping(target = "name", source = "name")
-    @Mapping(target = "lastname", source = "lastname")
+    @Mapping(target = "lastname", source = "lastName")
     @Mapping(target = "email", source = "email")
     @Mapping(target ="id", source = "idUser")
     UserEntity toUserEntity(User user);

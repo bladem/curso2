@@ -6,15 +6,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController("/client")
+@RestController
+@RequestMapping("/client")
 @RequiredArgsConstructor
 public class ClientController {
 
     private final ClientServicePort clientServicePort;
 
     @PutMapping("/create")
-    public ResponseEntity<Client> createClient(@RequestParam("id") String name, @RequestParam("id") String lastName,
-                                               @RequestParam("id") String email, @RequestParam("id") String phone) {
+    public ResponseEntity<Client> createClient(@RequestParam("name") String name, @RequestParam("lastName") String lastName,
+                                               @RequestParam("email") String email, @RequestParam("phone") String phone) {
         Client newClient = clientServicePort.createClient(name, lastName, email, phone);
         return ResponseEntity.ok().body(newClient);
     }

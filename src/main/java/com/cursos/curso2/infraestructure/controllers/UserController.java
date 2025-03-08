@@ -18,7 +18,7 @@ public class UserController {
 
     @GetMapping("/details")
     public String details(Model model){
-        User user = User.builder().name("Pau").lastname("Sanchez").idUser(1L).email("bladem@gmail.com").build();
+        User user = User.builder().name("Pau").lastName("Sanchez").idUser(1L).email("bladem@gmail.com").build();
         model.addAttribute("title", "Hola mundo");
         model.addAttribute("user", user);
         return "details";
