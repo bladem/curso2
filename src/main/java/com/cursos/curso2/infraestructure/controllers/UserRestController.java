@@ -24,7 +24,7 @@ public class UserRestController {
     public UserDto details(){
         User user = User.builder().name("Pau").lastName("Sanchez").build();
 
-        return this.useRestMapper.toUserDtoWithTitle(user, "Hola mundo");
+        return this.useRestMapper.toUserDto(user);
     }
 
     @GetMapping("/users")
