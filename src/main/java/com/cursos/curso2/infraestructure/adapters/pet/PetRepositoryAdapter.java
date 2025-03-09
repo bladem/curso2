@@ -26,7 +26,8 @@ public class PetRepositoryAdapter implements PetRepositoryPort {
 
     @Override
     public Pet updatePet(Pet pet) {
-        return null;
+        this.petRepository.findById(pet.getIdPet()).orElseThrow(()-> new EntityNotFoundException("Pet not found"));
+        return this.petMapper.toPet(this.petRepository.save(this.petMapper.toPetEntity(pet)));
     }
 
     @Override

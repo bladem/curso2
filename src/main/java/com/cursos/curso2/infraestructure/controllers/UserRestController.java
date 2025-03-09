@@ -37,13 +37,13 @@ public class UserRestController {
         return this.useRestMapper.toUserDto(this.userServicePort.getUser(name));
     }
 
-    @PutMapping("/create")
+    @PostMapping("/create")
     public ResponseEntity<UserDto> create(@RequestParam("name") String name, @RequestParam("lastname") String lastname, @RequestParam("email") String email){
         UserDto newUser = this.useRestMapper.toUserDto(this.userServicePort.createUser(name, lastname, email));
         return ResponseEntity.ok().body(newUser);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public ResponseEntity<UserDto> update(@RequestParam("id") Long id, @RequestParam("name") String name, @RequestParam("lastname") String lastname){
         UserDto updatedUser = this.useRestMapper.toUserDto(this.userServicePort.updateUser(id, name, lastname));
         return ResponseEntity.ok().body(updatedUser);

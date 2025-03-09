@@ -15,14 +15,14 @@ public class ClientController {
 
     private final ClientServicePort clientServicePort;
 
-    @PutMapping("/create")
+    @PostMapping("/create")
     public ResponseEntity<Client> createClient(@RequestParam("name") String name, @RequestParam("lastName") String lastName,
                                                @RequestParam("email") String email, @RequestParam("phone") String phone) {
         Client newClient = clientServicePort.createClient(name, lastName, email, phone);
         return ResponseEntity.ok().body(newClient);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public ResponseEntity<Client> updateClient(@RequestParam("id") Long id, @RequestParam("name") String name,
                                                @RequestParam("lastName") String lastName, @RequestParam("email") String email,
                                                @RequestParam("phone") String phone) {

@@ -1,10 +1,8 @@
 package com.cursos.curso2.infraestructure.jdbc.pets;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.cursos.curso2.infraestructure.jdbc.clients.ClientEntity;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,5 +22,8 @@ public class PetEntity {
     private String breed;
     private String color;
     private String size;
+
+    @ManyToOne
+    private ClientEntity client;
 
 }

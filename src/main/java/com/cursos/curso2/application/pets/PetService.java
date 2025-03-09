@@ -1,5 +1,7 @@
 package com.cursos.curso2.application.pets;
 
+import com.cursos.curso2.model.clients.Client;
+import com.cursos.curso2.model.clients.ports.ClientRepositoryPort;
 import com.cursos.curso2.model.pets.Pet;
 import com.cursos.curso2.model.pets.ports.PetRepositoryPort;
 import com.cursos.curso2.model.pets.ports.PetServicePort;
@@ -13,30 +15,35 @@ import java.util.List;
 public class PetService implements PetServicePort {
 
     private final PetRepositoryPort petRepositoryPort;
+    private final ClientRepositoryPort clientRepositoryPort;
+
 
     @Override
-    public Pet createPet(String name, String type, String breed, String color, String size) {
-        return null;
+    public Pet createPet(Pet pet, long idClient) {
+        Client client = clientRepositoryPort.getClient(idClient);
+        pet.setClient(client);
+
+        return petRepositoryPort.createPet(pet);
     }
 
     @Override
-    public Pet updatePet(Long id, String name, String type, String breed, String color, String size) {
-        return null;
+    public Pet updatePet(Pet pet) {
+        return petRepositoryPort.updatePet(pet);
     }
 
     @Override
     public void deletePet(Long id) {
-
+        petRepositoryPort.deletePet(id);
     }
 
     @Override
     public Pet getPet(String name) {
-        return null;
+        return petRepositoryPort.getPet(name);
     }
 
     @Override
     public List<Pet> getPets() {
-        return List.of();
+        return petRepositoryPort.getPets();
     }
 }
 

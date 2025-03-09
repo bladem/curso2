@@ -1,5 +1,6 @@
 package com.cursos.curso2.model.pets;
 
+import com.cursos.curso2.model.clients.Client;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,4 +17,5 @@ public class Pet {
     private String breed;
     private String color;
     private String size;
+    private Client client;
 }
