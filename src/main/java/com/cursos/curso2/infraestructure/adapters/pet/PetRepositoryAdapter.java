@@ -43,8 +43,6 @@ public class PetRepositoryAdapter implements PetRepositoryPort {
 
     @Override
     public List<Pet> getPets() {
-        final List<PetEntity> pets = (List<PetEntity>) this.petRepository.findAll();
-
-        return pets.stream().map(this.petMapper::toPet).toList();
+        return this.petRepository.findAll().stream().map(this.petMapper::toPet).toList();
     }
 }

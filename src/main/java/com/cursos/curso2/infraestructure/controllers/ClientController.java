@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/client")
 @RequiredArgsConstructor
@@ -42,6 +44,11 @@ public class ClientController {
     @GetMapping("/clientId")
     public Client getClient(@RequestParam("id") Long id) {
         return this.clientServicePort.getClient(id);
+    }
+
+    @GetMapping("/clients")
+    public List<Client> getClients() {
+        return this.clientServicePort.getClients();
     }
 
 }

@@ -42,6 +42,6 @@ public class ClientService implements ClientServicePort {
 
     @Override
     public List<Client> getClients() {
-        return List.of();
+        return clientRepositoryPort.getClients();
     }
 }
