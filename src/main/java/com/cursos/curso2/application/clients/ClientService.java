@@ -6,6 +6,8 @@ import com.cursos.curso2.model.clients.ports.ClientServicePort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ClientService implements ClientServicePort {
@@ -20,21 +22,26 @@ public class ClientService implements ClientServicePort {
 
     @Override
     public Client updateClient(Long id, String name, String lastName, String email, String phone) {
-        return null;
+        return clientRepositoryPort.updateClient(id, name, lastName, email, phone);
     }
 
     @Override
     public void deleteClient(Long id) {
-
+        clientRepositoryPort.deleteClient(id);
     }
 
     @Override
     public Client getClient(String name) {
-        return null;
+        return clientRepositoryPort.getClient(name);
     }
 
     @Override
     public Client getClient(Long id) {
-        return null;
+        return clientRepositoryPort.getClient(id);
+    }
+
+    @Override
+    public List<Client> getClients() {
+        return List.of();
     }
 }

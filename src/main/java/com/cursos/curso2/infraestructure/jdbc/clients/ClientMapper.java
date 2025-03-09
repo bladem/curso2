@@ -5,6 +5,8 @@ import com.cursos.curso2.model.clients.Client;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 @Mapper(uses = { PetMapperImpl.class})
 public interface ClientMapper {
 

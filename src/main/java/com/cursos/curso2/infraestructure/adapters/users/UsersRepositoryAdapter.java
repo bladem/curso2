@@ -57,8 +57,6 @@ public class UsersRepositoryAdapter implements UserRepositoryPort {
 
     @Override
     public List<User> getUsers() {
-        List<UserEntity> users = (List<UserEntity>) userRepository.findAll();
-
-        return users.stream().map(userMapper::toUser).collect(Collectors.toList());
+        return userRepository.findAll().stream().map(userMapper::toUser).collect(Collectors.toList());
     }
 }
