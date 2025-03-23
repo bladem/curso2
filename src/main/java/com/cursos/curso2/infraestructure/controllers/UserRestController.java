@@ -49,8 +49,8 @@ public class UserRestController {
         return ResponseEntity.ok().body(updatedUser);
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<String> delete(@RequestParam("id") Long id){
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id){
         this.userServicePort.deleteUser(id);
         return ResponseEntity.ok().body("User deleted");
     }
