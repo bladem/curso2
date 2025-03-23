@@ -21,4 +21,10 @@ public interface UseRestMapper {
     default List<UserDto> toUserDtoList(List<User> users){
         return Optional.ofNullable(users).map(users1 -> users1.stream().map(this::toUserDto).toList()).orElse(new ArrayList<>());
     }
+
+    @Mapping(target = "idUser", source = "idUser")
+    @Mapping(target = "name", source = "name")
+    @Mapping(target = "lastName", source = "lastName")
+    @Mapping(target = "email", source = "email")
+    User toUser(UserDto userDto);
 }

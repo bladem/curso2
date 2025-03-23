@@ -13,7 +13,7 @@ import com.cursos.curso2.model.users.User;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserRestController {
     private final UserServicePort userServicePort;
@@ -32,31 +32,20 @@ public class UserRestController {
         return  this.useRestMapper.toUserDtoList(this.userServicePort.getUsers());
     }
 
-    @GetMapping("/user")
+    @GetMapping("/getUserByName")
     public UserDto user(@RequestParam("name") String name){
         return this.useRestMapper.toUserDto(this.userServicePort.getUser(name));
     }
 
     @PostMapping("/create")
-    public ResponseEntity<UserDto> create(@RequestParam("name") String name, @RequestParam("lastname") String lastname,
-                                          @RequestParam("email") String email){
-        UserDto newUser = this.useRestMapper.toUserDto(this.userServicePort.createUser(User.builder()
-                .name(name)
-                .lastName(lastname)
-                .email(email)
-                .build()));
+    public ResponseEntity<UserDto> create(@RequestBody UserDto userDto){
+        UserDto newUser = this.useRestMapper.toUserDto(this.userServicePort.createUser(this.useRestMapper.toUser(userDto)));
         return ResponseEntity.ok().body(newUser);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<UserDto> update(@RequestParam("id") Long id, @RequestParam("name") String name,
-                                          @RequestParam("lastname") String lastname, @RequestParam("email") String email){
-        UserDto updatedUser = this.useRestMapper.toUserDto(this.userServicePort.updateUser(User.builder()
-                .name(name)
-                .idUser(id)
-                .lastName(lastname)
-                .email(email)
-                .build()));
+    public ResponseEntity<UserDto> update(@RequestBody UserDto userDto){
+        UserDto updatedUser = this.useRestMapper.toUserDto(this.userServicePort.updateUser(this.useRestMapper.toUser(userDto)));
         return ResponseEntity.ok().body(updatedUser);
     }
 

@@ -1,9 +1,7 @@
 package com.cursos.curso2.infraestructure.adapters.client;
 
-import com.cursos.curso2.infraestructure.jdbc.clients.ClientEntity;
 import com.cursos.curso2.infraestructure.jdbc.clients.ClientMapper;
 import com.cursos.curso2.infraestructure.jdbc.clients.ClientRepository;
-import com.cursos.curso2.infraestructure.jdbc.pets.PetMapper;
 import com.cursos.curso2.model.clients.Client;
 import com.cursos.curso2.model.clients.ports.ClientRepositoryPort;
 import jakarta.persistence.EntityNotFoundException;
@@ -22,19 +20,23 @@ public class ClientRepositoryAdapter implements ClientRepositoryPort {
 
 
     @Override
-    public Client createClient(Client client) {
+    public Client createClient(final Client client) {
         return clientMapper.toClient(clientRepository.save(clientMapper.toClientEntity(client)));
     }
 
     @Override
-    public Client updateClient(Client client) {
-        clientRepository.save(clientMapper.toClientEntity(client));
+    public Client updateClient(final Client client) {
+        this.checkUserExist(client);
 
-        return clientMapper.toClient(clientRepository.findById(client.getId()).orElseThrow(()-> new EntityNotFoundException("Client not found")));
+        return clientMapper.toClient(clientRepository.save(clientMapper.toClientEntity(client)));
+    }
+
+    private void checkUserExist(final Client client) {
+        clientRepository.findById(client.getId()).orElseThrow(() -> new EntityNotFoundException("Client not found"));
     }
 
     @Override
-    public void deleteClient(Long id) {
+    public void deleteClient(final Long id) {
         clientRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Client not found"));
         clientRepository.deleteById(id);
     }
