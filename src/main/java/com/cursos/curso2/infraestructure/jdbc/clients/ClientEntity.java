@@ -29,6 +29,6 @@ public class ClientEntity {
     private String postalCode;
     private String dni;
     private LocalDate birthDate;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<PetEntity> pets;
 }

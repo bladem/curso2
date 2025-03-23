@@ -3,6 +3,7 @@ package com.cursos.curso2.infraestructure.adapters.pet;
 import com.cursos.curso2.infraestructure.jdbc.pets.PetEntity;
 import com.cursos.curso2.infraestructure.jdbc.pets.PetMapper;
 import com.cursos.curso2.infraestructure.jdbc.pets.PetRepository;
+import com.cursos.curso2.model.clients.Client;
 import com.cursos.curso2.model.pets.Pet;
 import com.cursos.curso2.model.pets.ports.PetRepositoryPort;
 import jakarta.persistence.EntityNotFoundException;
@@ -38,12 +39,16 @@ public class PetRepositoryAdapter implements PetRepositoryPort {
 
     @Override
     public Pet getPet(String name) {
-        PetEntity petEntity = this.petRepository.findByName(name);
-        return Optional.ofNullable(petEntity).map(this.petMapper::toPet).orElse(null);
+        return this.petRepository.findByName(name).map(this.petMapper::toPet).orElse(null);
     }
 
     @Override
     public List<Pet> getPets() {
         return this.petRepository.findAll().stream().map(this.petMapper::toPet).toList();
+    }
+
+    @Override
+    public Optional<Pet> findByNameAndClient(String name, Client client) {
+        return Optional.of(this.petMapper.toPet(petRepository.findByNameAndClient(name,client).orElse(null)));
     }
 }

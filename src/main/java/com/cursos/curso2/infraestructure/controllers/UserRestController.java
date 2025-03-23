@@ -38,14 +38,25 @@ public class UserRestController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<UserDto> create(@RequestParam("name") String name, @RequestParam("lastname") String lastname, @RequestParam("email") String email){
-        UserDto newUser = this.useRestMapper.toUserDto(this.userServicePort.createUser(name, lastname, email));
+    public ResponseEntity<UserDto> create(@RequestParam("name") String name, @RequestParam("lastname") String lastname,
+                                          @RequestParam("email") String email){
+        UserDto newUser = this.useRestMapper.toUserDto(this.userServicePort.createUser(User.builder()
+                .name(name)
+                .lastName(lastname)
+                .email(email)
+                .build()));
         return ResponseEntity.ok().body(newUser);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<UserDto> update(@RequestParam("id") Long id, @RequestParam("name") String name, @RequestParam("lastname") String lastname){
-        UserDto updatedUser = this.useRestMapper.toUserDto(this.userServicePort.updateUser(id, name, lastname));
+    public ResponseEntity<UserDto> update(@RequestParam("id") Long id, @RequestParam("name") String name,
+                                          @RequestParam("lastname") String lastname, @RequestParam("email") String email){
+        UserDto updatedUser = this.useRestMapper.toUserDto(this.userServicePort.updateUser(User.builder()
+                .name(name)
+                .idUser(id)
+                .lastName(lastname)
+                .email(email)
+                .build()));
         return ResponseEntity.ok().body(updatedUser);
     }
 

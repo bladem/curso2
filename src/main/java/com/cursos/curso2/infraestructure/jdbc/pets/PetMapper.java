@@ -5,6 +5,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Mapper
 @Component
 public interface PetMapper {
@@ -24,4 +26,8 @@ public interface PetMapper {
     @Mapping(target = "color", source = "color")
     @Mapping(target = "size", source = "size")
     Pet toPet(PetEntity petEntity);
+
+    default List<PetEntity> toPetEntityList(List<Pet> pets){
+        return pets.stream().map(this::toPetEntity).toList();
+    }
 }

@@ -3,6 +3,7 @@ package com.cursos.curso2.infraestructure.adapters.client;
 import com.cursos.curso2.infraestructure.jdbc.clients.ClientEntity;
 import com.cursos.curso2.infraestructure.jdbc.clients.ClientMapper;
 import com.cursos.curso2.infraestructure.jdbc.clients.ClientRepository;
+import com.cursos.curso2.infraestructure.jdbc.pets.PetMapper;
 import com.cursos.curso2.model.clients.Client;
 import com.cursos.curso2.model.clients.ports.ClientRepositoryPort;
 import jakarta.persistence.EntityNotFoundException;
@@ -17,30 +18,19 @@ import java.util.Optional;
 public class ClientRepositoryAdapter implements ClientRepositoryPort {
 
     private final ClientRepository clientRepository;
-
     private final ClientMapper clientMapper;
 
 
     @Override
-    public Client createClient(String name, String lastName, String email, String phone) {
-        Client client = Client.builder()
-                .name(name)
-                .lastName(lastName)
-                .email(email)
-                .phone(phone)
-                .build();
-
+    public Client createClient(Client client) {
         return clientMapper.toClient(clientRepository.save(clientMapper.toClientEntity(client)));
     }
 
     @Override
-    public Client updateClient(Long id, String name, String lastName, String email, String phone) {
-        ClientEntity clientEntity = clientRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Client not found"));
-        clientEntity.setName(name);
-        clientEntity.setLastName(lastName);
-        clientEntity.setEmail(email);
-        clientEntity.setPhone(phone);
-        return clientMapper.toClient(clientRepository.save(clientEntity));
+    public Client updateClient(Client client) {
+        clientRepository.save(clientMapper.toClientEntity(client));
+
+        return clientMapper.toClient(clientRepository.findById(client.getId()).orElseThrow(()-> new EntityNotFoundException("Client not found")));
     }
 
     @Override

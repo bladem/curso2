@@ -3,26 +3,33 @@ package com.cursos.curso2.application.clients;
 import com.cursos.curso2.model.clients.Client;
 import com.cursos.curso2.model.clients.ports.ClientRepositoryPort;
 import com.cursos.curso2.model.clients.ports.ClientServicePort;
+import com.cursos.curso2.model.pets.ports.PetRepositoryPort;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Log4j2
 public class ClientService implements ClientServicePort {
 
     private final ClientRepositoryPort clientRepositoryPort;
 
+    private final PetRepositoryPort petRepository;
+
 
     @Override
-    public Client createClient(String name, String lastName, String email, String phone) {
-        return clientRepositoryPort.createClient(name, lastName, email, phone);
+    @Transactional
+    public Client createClient(Client client) {
+        return clientRepositoryPort.createClient(client);
     }
 
     @Override
-    public Client updateClient(Long id, String name, String lastName, String email, String phone) {
-        return clientRepositoryPort.updateClient(id, name, lastName, email, phone);
+    public Client updateClient(Client client) {
+        return clientRepositoryPort.updateClient(client);
     }
 
     @Override

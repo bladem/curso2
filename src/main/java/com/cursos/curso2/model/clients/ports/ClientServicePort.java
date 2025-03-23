@@ -5,8 +5,8 @@ import com.cursos.curso2.model.clients.Client;
 import java.util.List;
 
 public interface ClientServicePort {
-    Client createClient(String name, String lastName, String email, String phone);
-    Client updateClient(Long id, String name, String lastName, String email, String phone);
+    Client createClient(Client client);
+    Client updateClient(Client client);
     void deleteClient(Long id);
     Client getClient(String name);
     Client getClient(Long id);

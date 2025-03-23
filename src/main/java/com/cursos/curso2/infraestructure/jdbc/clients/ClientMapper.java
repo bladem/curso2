@@ -21,6 +21,7 @@ public interface ClientMapper {
     @Mapping(target = "dni", source = "dni")
     @Mapping(target = "birthDate", source = "birthDate")
     @Mapping(target = "pets", source = "pets")
+    @Mapping(target = "id", source = "id")
     ClientEntity toClientEntity(Client client);
 
     @Mapping(target = "id", source = "id")
